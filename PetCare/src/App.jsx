@@ -14,6 +14,14 @@ function MyButton() {
   return <button>Je suis un bouton</button>;
 }
 
+function AdminPanel() {
+  return <h2>Bienvenue dans le panneau admin</h2>;
+}
+
+function LoginForm() {
+  return <h2>Veuillez vous connecter</h2>;
+}
+
 function AboutPage() {
   return (
     <>
@@ -31,11 +39,20 @@ function AboutPage() {
 }
 
 export default function MyApp() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   return (
     <div>
       <h1>Bienvenue dans mon appli</h1>
       <MyButton />
       <AboutPage />
+
+      <div>
+        <h1>Mon Application</h1>
+        <div>{isLoggedIn ? <AdminPanel /> : <LoginForm />}</div>
+        <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
+          {isLoggedIn ? "Déconnexion" : "Connexion"}
+        </button>
+      </div>
     </div>
   );
 }
