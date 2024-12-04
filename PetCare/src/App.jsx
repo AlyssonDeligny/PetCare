@@ -10,8 +10,36 @@ const user = {
   imageSize: 90,
 };
 
+const isLoggedIn = false;
+let content;
+if (isLoggedIn) {
+  content = <AdminPanel />;
+} else {
+  content = <LoginForm />;
+}
+
+const products = [
+  { title: "Chou", isFruit: false, id: 1 },
+  { title: "Ail", isFruit: false, id: 2 },
+  { title: "Pomme", isFruit: true, id: 3 },
+];
+
+const listItems = products.map((product) => (
+  <li
+    key={product.id}
+    style={{ color: product.isFruit ? "magenta" : "darkgreen" }}
+  >
+    {product.title}
+  </li>
+));
+
 function MyButton() {
-  return <button>Je suis un bouton</button>;
+  const [count, setCount] = useState(0);
+  function handleClick() {
+    setCount(count + 1);
+    alert("Vous avez cliqué !");
+  }
+  return <button onClick={handleClick}>Cliqué {count} fois</button>;
 }
 
 function AdminPanel() {
@@ -39,23 +67,30 @@ function AboutPage() {
 }
 
 export default function MyApp() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   return (
     <div>
       <h1>Bienvenue dans mon appli</h1>
       <MyButton />
       <AboutPage />
+      <MyButton />
 
       <div>
         <h1>Mon Application</h1>
-        <div>{isLoggedIn ? <AdminPanel /> : <LoginForm />}</div>
+        {content}
+        {/* <div>{isLoggedIn ? <AdminPanel /> : <LoginForm />}</div>
         <button onClick={() => setIsLoggedIn(!isLoggedIn)}>
           {isLoggedIn ? "Déconnexion" : "Connexion"}
-        </button>
+        </button>*/}
+      </div>
+      <div>
+        <ul>{listItems}</ul>
       </div>
     </div>
   );
 }
+
 // function App() {
 //   const [count, setCount] = useState(0);
 
