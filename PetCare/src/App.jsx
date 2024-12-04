@@ -33,15 +33,6 @@ const listItems = products.map((product) => (
   </li>
 ));
 
-function MyButton() {
-  const [count, setCount] = useState(0);
-  function handleClick() {
-    setCount(count + 1);
-    alert("Vous avez cliqué !");
-  }
-  return <button onClick={handleClick}>Cliqué {count} fois</button>;
-}
-
 function AdminPanel() {
   return <h2>Bienvenue dans le panneau admin</h2>;
 }
@@ -68,13 +59,21 @@ function AboutPage() {
 
 export default function MyApp() {
   // const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [count, setCount] = useState(0);
+  function handleClick() {
+    setCount(count + 1);
+  }
 
   return (
     <div>
       <h1>Bienvenue dans mon appli</h1>
-      <MyButton />
       <AboutPage />
-      <MyButton />
+      <div>
+        <h1>Compteurs synchronisés</h1>
+        <MyButton count={count} onClick={handleClick} />
+        <br />
+        <MyButton count={count} onClick={handleClick} />
+      </div>
 
       <div>
         <h1>Mon Application</h1>
@@ -89,6 +88,9 @@ export default function MyApp() {
       </div>
     </div>
   );
+  function MyButton({ count, onClick }) {
+    return <button onClick={onClick}>Cliqué {count} fois</button>;
+  }
 }
 
 // function App() {
